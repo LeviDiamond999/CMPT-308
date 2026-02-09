@@ -1,0 +1,14 @@
+This lab2 folder contains:
+• lab2.sql with all queries
+• screenshots of outputs
+• this README
+How to run Lab2.sql
+• Open pgAdmin and connect to your PostgreSQL server
+• Open the Query Tool
+• Load lab2.sql
+• Execute
+This lab includes:
+• A database for Students, Courses, and Enrollments
+• SQL queries for selection, projection, and more
+• Relational algebra expressions
+• Written responses for basic vocabulary questions
