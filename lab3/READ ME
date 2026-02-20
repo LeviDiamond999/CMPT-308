@@ -1,0 +1,11 @@
+The system consists of three main tables:
+patients: Stores patient information.
+
+Includes a CHECK constraint ensuring patient_id > 1.
+
+doctors: Stores medical professional details.
+
+appointments: A bridge table representing a many-to-many relationship between patients and doctors.
+
+Uses a Composite Primary Key (patient_id, doctor_id, appointment_date_time).
+
