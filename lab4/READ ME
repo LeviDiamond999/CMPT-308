@@ -1,0 +1,10 @@
+This lab4 folder contains:
+• lab4.sql with all queries
+• screenshots of outputs
+• this README
+This lab includes:
+• A database for Students, Courses, and Enrollments
+• SQL queries for selection, Inner Join, Where, Left Join, 
+Count, Group By, Having, In, Exists, Correlated Subquery,
+Union and EXCEPT
+• Gemini vs GitHub Copilot
