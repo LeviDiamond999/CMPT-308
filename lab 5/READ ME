@@ -1,0 +1,9 @@
+This lab5 folder contains:
+• lab5.sql with all queries
+• screenshots of outputs
+• this README
+This lab includes:
+• A database for Students, Courses, and Enrollments
+• SQL queries for selection, Where, In, Exists, Not In
+Union, Intersection and EXCEPT
+• Relation questions concerning 1nf, 2nf and 3nf
