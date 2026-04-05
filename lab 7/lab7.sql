@@ -44,7 +44,7 @@ BEGIN;
 
 UPDATE Accounts
 SET balance = balance + 100
-WHERE account_id = 1 
+WHERE account_id = 1;
 
 UPDATE Accounts
 SET balance = balance - 100
