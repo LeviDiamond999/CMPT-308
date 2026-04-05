@@ -52,5 +52,33 @@ WHERE account_id = 2;
 
 COMMIT;
 
+SELECT * 
+FROM Accounts
+WHERE account_id = 1
+UNION
+SELECT * 
+FROM Accounts
+WHERE account_id = 2;
+
+
+BEGIN;
+
+UPDATE Accounts
+SET balance = balance - 99
+WHERE account_id = 1 and balance >= 100;
+
+UPDATE Accounts
+SET balance = balance + 100000
+WHERE account_id = 2;
+
+ROLLBACK;
+
+SELECT * 
+FROM Accounts
+WHERE account_id = 1
+UNION
+SELECT * 
+FROM Accounts
+WHERE account_id = 2;
 
 
