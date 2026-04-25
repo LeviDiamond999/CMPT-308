@@ -1,0 +1,11 @@
+1. Database Schema Overview: Breaks down the purpose of each table (students, courses, enrollments, and audit).
+
+2. Role-Based Access Control (RBAC): Documents the specific permissions granted to the advisor_role and registrar_role.
+
+3. Logic Implementation: Explains how the register_student procedure handles validation (checks for existence, duplicates, and capacity).
+
+4. Automation: Highlights the trigger functionality that silently logs enrollment activities.
+
+5. Testing Guide: Provides the SQL calls to verify successful enrollments and trigger failures (e.g., duplicate enrollment or non-existent students).
+
+6. Conceptual Section: Includes the explanations for AuthN vs. AuthZ and Stored Procedures vs. Triggers to round out the lab requirements.
