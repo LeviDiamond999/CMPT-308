@@ -131,12 +131,9 @@ CALL register_student(104, 'CS101')
 SELECT * FROM lab8_enrollment_audit;
 
 -- Part D
-SELECT s.name, c.course.id , c.title, enrolled_at FROM lab8_students s
-JOIN ON lab8_enrollments e 
-WHERE e.student_id = s.student_id
-JOIN ON lab8_courses C 
-WHERE c.course_id = e.course_id
-
+SELECT s.student_name, c.course_id , c.title, enrolled_at FROM lab8_students s
+JOIN lab8_enrollments e ON e.student_id = s.student_id
+JOIN lab8_courses c ON c.course_id = e.course_id;
 
 Select * from lab8_courses 
 
