@@ -63,4 +63,88 @@ GRANT UPDATE ON lab8_enrollments TO registrar_role
 REVOKE DELETE ON lab8_enrollments FROM registrar_role
 
 -- Creating Procedures
+CREATE OR REPLACE PROCEDURE register_student(p_student_id INT, p_course_id TEXT)
+LANGUAGE plpgsql AS $$
+DECLARE
+    v_capacity      INT;
+    v_enrolled      INT;
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM lab8_students WHERE student_id = p_student_id) THEN
+        RAISE EXCEPTION 'Student % does not exist.', p_student_id;
+    END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM lab8_courses WHERE course_id = p_course_id) THEN
+        RAISE EXCEPTION 'Course % does not exist.', p_course_id;
+    END IF;
+
+    IF EXISTS (
+        SELECT 1 FROM lab8_enrollments
+        WHERE student_id = p_student_id AND course_id = p_course_id
+    ) THEN
+        RAISE EXCEPTION 'Student % is already enrolled in course %.', p_student_id, p_course_id;
+    END IF;
+
+    SELECT capacity, enrolled_count INTO v_capacity, v_enrolled
+    FROM lab8_courses WHERE course_id = p_course_id;
+
+    IF v_enrolled >= v_capacity THEN
+        RAISE EXCEPTION 'Course % has reached max capacity.', p_course_id;
+    END IF;
+
+    INSERT INTO lab8_enrollments(student_id, course_id)
+    VALUES (p_student_id, p_course_id);
+
+    UPDATE lab8_courses
+    SET enrolled_count = enrolled_count + 1
+    WHERE course_id = p_course_id;
+
+END;
+$$;
+
+-- Testing Procedures
+CALL register_student(101, 'CS101');
+
+CALL register_student(101, 'CS101');
+
+CALL register_student(999, 'CS101');
+
+-- Creating Triggers
+CREATE OR REPLACE FUNCTION log_enrollment()
+RETURNS TRIGGER
+LANGUAGE plpgsql AS $$
+BEGIN
+    INSERT INTO lab8_enrollment_audit(action_type, student_id, course_id, action_time)
+    VALUES ('ENROLLED', NEW.student_id, NEW.course_id, CURRENT_TIMESTAMP);
+    RETURN NEW;
+END;
+$$
+
+CREATE TRIGGER enrollment_audit_trigger
+AFTER INSERT
+ON lab8_enrollments
+FOR EACH ROW
+EXECUTE FUNCTION log_enrollment();
+
+-- Testing and Querying the Audit table
+CALL register_student(104, 'CS101')
+
+SELECT * FROM lab8_enrollment_audit;
+
+-- Part D
+SELECT s.name, c.course.id , c.title, enrolled_at FROM Students s
+JOIN ON Enrollments e 
+WHERE e.student_id = s.student_id
+JOIN ON Courses C 
+WHERE c.course_id = e.course_id
+
+Select * from Courses 
+
+SELECT * FROM lab8_enrollment_audit 
+ORDER BY action_time ASC
+
+SELECT grantee, table_name, privilege_type
+FROM information_schema.role_table_grants
+WHERE grantee IN ('advisor_role', 'registrar_role')
+AND table_name LIKE 'lab8_%'
+
 
