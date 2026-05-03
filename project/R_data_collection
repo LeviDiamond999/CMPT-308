@@ -1,0 +1,42 @@
+library(nflfastR)
+library(tidyverse)
+library(nflreadr)
+library(dplyr)
+
+playbyplay_r <- load_pbp(2025)
+
+passers <- load_rosters(seasons = 2025) |>
+  dplyr::filter(position == "QB") |>
+  dplyr::select(gsis_id, full_name) |>
+  dplyr::rename(passer_id = gsis_id, passer = full_name)
+
+QBstats <- playbyplay_r %>% select(play_id, game_id, home_team, away_team, 
+                                   posteam, defteam, passer_id, passing_yards, 
+                                   pass_attempt, pass_touchdown, complete_pass, 
+                                   qb_epa, shotgun, qb_dropback, qb_scramble, yards_gained)
+
+QBstats <- QBstats |>
+  dplyr::filter(qb_dropback == 1)
+
+QBstats <- QBstats %>%
+  mutate(passer_id = str_sub(passer_id, -5))
+
+QBstats$passer_id <- as.numeric(QBstats$passer_id)
+
+QBstats$team <- QBstats$posteam
+
+#making the tables
+#Players table is already done
+#Plays
+#just removing the team columns
+QBplays <- QBstats %>% select(play_id, game_id, passer_id, passing_yards, 
+                              pass_attempt, pass_touchdown, complete_pass, 
+                              qb_epa, shotgun, qb_dropback, qb_scramble, yards_gained)
+
+# Games
+QBgames <- QBstats %>% select(game_id, home_team, away_team, 
+                      posteam, defteam)
+QBgames <- unique(QBgames)
+
+write.csv(QBgames, "~/Desktop/QBgames.csv", row.names = FALSE)
+write.csv(QBplays, "~/Desktop/QBplays.csv", row.names = FALSE)
