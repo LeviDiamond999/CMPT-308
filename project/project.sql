@@ -19,6 +19,7 @@ play_id INT,
 game_id VARCHAR (20),
 passer_id INT,
 posteam VARCHAR(4),
+passing_yards INT, 
 pass_attempt INT,
 pass_touchdown INT,
 complete_pass INT,
@@ -31,4 +32,9 @@ PRIMARY KEY (play_id, game_id, passer_id),
 FOREIGN KEY (game_id, posteam) REFERENCES QBgames(game_id, posteam),
 FOREIGN KEY (passer_id) REFERENCES Quarterbacks(passer_id)
 );
+
+
+-- import the csvs from R to SQL
+\copy QBplays FROM '/Users/levidiamond/Desktop/Cmpt 308/project/QBplays.csv' CSV HEADER NULL 'NA';
+
 
