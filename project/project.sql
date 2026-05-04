@@ -18,6 +18,7 @@ CREATE TABLE QBplays(
 play_id INT,
 game_id VARCHAR (20),
 passer_id INT,
+posteam VARCHAR(4),
 pass_attempt INT,
 pass_touchdown INT,
 complete_pass INT,
@@ -27,7 +28,7 @@ qb_dropback INT,
 qb_scramble INT,
 yards_gained INT,
 PRIMARY KEY (play_id, game_id, passer_id),
-FOREIGN KEY (game_id) REFERENCES QBgames(game_id),
+FOREIGN KEY (game_id, posteam) REFERENCES QBgames(game_id, posteam),
 FOREIGN KEY (passer_id) REFERENCES Quarterbacks(passer_id)
 );
 
