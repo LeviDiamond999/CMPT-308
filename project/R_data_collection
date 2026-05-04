@@ -28,15 +28,21 @@ QBstats$team <- QBstats$posteam
 #making the tables
 #Players table is already done
 #Plays
-#just removing the team columns
+  #just removing the team columns
 QBplays <- QBstats %>% select(play_id, game_id, passer_id, posteam, passing_yards, 
                               pass_attempt, pass_touchdown, complete_pass, 
                               qb_epa, shotgun, qb_dropback, qb_scramble, yards_gained)
 
+  #taking out all non-QB players from the data
+Quarterbacks <- read.csv(file.choose(), stringsAsFactors = TRUE)
+
+QBplays <- QBplays %>%
+  semi_join(Quarterbacks, by = "passer_id")
+
+write.csv(QBplays, "~/Desktop/QBplays.csv", row.names = FALSE)
 # Games
 QBgames <- QBstats %>% select(game_id, home_team, away_team, 
                       posteam, defteam)
 QBgames <- unique(QBgames)
 
 write.csv(QBgames, "~/Desktop/QBgames.csv", row.names = FALSE)
-write.csv(QBplays, "~/Desktop/QBplays.csv", row.names = FALSE)
