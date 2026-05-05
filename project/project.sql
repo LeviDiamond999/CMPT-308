@@ -103,4 +103,33 @@ BEGIN
 
 END; $$;
 
-  
+
+--testing queries
+SELECT play_id, game_id, posteam FROM QBplays
+WHERE qb_scramble = 1 AND yards_gained > 39 
+
+SELECT game_id, game_pYards, game_p_TD, q.player FROM Game_Stats g
+JOIN Quarterbacks q 
+ON g.passer_id = q.passer_id
+WHERE game_p_TD > 3
+ORDER BY game_pYards DESC
+
+SELECT player, p.posteam, COUNT(p.play_id) AS Plays_over_10_yds FROM QBplays p
+JOIN Quarterbacks q
+ON p.passer_id = q.passer_id 
+JOIN QBgames g
+ON g.game_id = p.game_id
+WHERE g.defteam = 'NYJ' 
+  AND p.passing_yards > 10 
+  AND p.posteam <> 'NYJ'
+GROUP BY player, p.posteam, g.defteam
+ORDER BY Plays_over_10_yds DESC
+
+SELECT team, SUM(salary) AS QB_Payroll, SUM(total_yards) AS QB_total_yards FROM Quarterbacks q
+JOIN Season_Stats s
+ON s.passer_id = q.passer_id
+GROUP BY team 
+
+
+
+
