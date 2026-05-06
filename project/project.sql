@@ -108,11 +108,9 @@ END; $$;
 SELECT play_id, game_id, posteam FROM QBplays
 WHERE qb_scramble = 1 AND yards_gained > 39 
 
-SELECT q.player, defteam, game_pYards, game_p_TD,  FROM Game_Stats g
+SELECT q.player, game_id ,game_pYards, game_p_TD  FROM Game_Stats g
 JOIN Quarterbacks q 
 ON g.passer_id = q.passer_id
-JOIN QBgames b
-ON b.game_id = g.game_id
 WHERE game_p_TD > 3
 ORDER BY game_pYards DESC
 
