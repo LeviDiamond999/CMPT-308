@@ -132,10 +132,11 @@ GROUP BY team
 
 SELECT player, salary
 FROM Quarterbacks
-WHERE passer_id IN(
+WHERE salary < 5000000 AND passer_id IN(
   SELECT passer_id
   FROM Season_Stats
-  WHERE p_TD > 30)
+  WHERE p_TD > 15
+  AND p_Yards > 3000)
 
 SELECT play_id, defteam, passing_yards, pass_touchdown 
 FROM QBplays p
