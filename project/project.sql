@@ -137,8 +137,6 @@ WHERE passer_id IN(
   FROM Season_Stats
   WHERE p_TD > 30)
 
-SELECT SUM(game_pYards) AS Passing_Yards_Allowed_2025, defteam FROM Game_Stats g
-JOIN QBgames q ON G.game_id = q.game_id
-GROUP BY defteam
-ORDER BY Passing_Yards_Allowed_2025 ASC
+
+
 
