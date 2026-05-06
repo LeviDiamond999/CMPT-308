@@ -137,6 +137,14 @@ WHERE passer_id IN(
   FROM Season_Stats
   WHERE p_TD > 30)
 
-
+SELECT play_id, defteam, passing_yards, pass_touchdown 
+FROM QBplays p
+JOIN Quarterbacks q
+ON p.passer_id = q.passer_id
+JOIN QBgames g
+ON g.game_id = p.game_id
+WHERE player = 'Mac Jones'
+AND defteam <> 'SF'
+ORDER BY game_id, play_id ASC
 
 
