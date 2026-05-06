@@ -144,8 +144,9 @@ JOIN Quarterbacks q
 ON p.passer_id = q.passer_id
 JOIN QBgames g
 ON g.game_id = p.game_id
-WHERE player = 'Mac Jones'
+WHERE player = 'Mac Jones' 
 AND defteam <> 'SF'
-ORDER BY game_id, play_id ASC
+AND complete_pass = 1
+ORDER BY p.game_id, play_id ASC
 
 
