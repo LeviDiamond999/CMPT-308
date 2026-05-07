@@ -148,4 +148,4 @@ This project is a **blueprint** for combining any two athlete datasets that don'
 
 **Levi Diamond**  
 Data Science & Applied Mathematics @ Marist University  
-[LinkedIn](https://linkedin.com/in/levi) · [Instagram @sportsgraphsofficial](https://instagram.com/sportsgraphsofficial)
+[Instagram @sportsgraphsofficial](https://instagram.com/sportsgraphsofficial)
